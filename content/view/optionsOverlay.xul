@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE window [
+<!ENTITY % opt SYSTEM "chrome://enhancedlogging/locale/options.dtd">
+%opt;
+<!ENTITY % side SYSTEM "chrome://enhancedlogging/locale/selenium-ide.dtd">
+%side;
+]>
+
+<overlay id="enhancedlogging_options_overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
+<script type="application/x-javascript" src="chrome://enhancedlogging/content/view/optionsOverlay.js"/>
+
+<stringbundle id="strings" src="chrome://enhancedlogging/locale/enhancedlogging.properties" />
+
+<tabpanel id="general">
+    <checkbox id="useEnhancedLogging" label="&extensions.selenium-ide.enhancedlogging.useEnhancedLogging.description;"/>
+</tabpanel>
+
+</overlay>

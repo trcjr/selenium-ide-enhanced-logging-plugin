@@ -1,0 +1,8 @@
+content enhancedlogging content/
+
+locale  enhancedlogging en-US locale/en-US/
+
+# custom extension(s)
+overlay chrome://selenium-ide/content/selenium-ide-overlay.xul chrome://enhancedlogging/content/extensions/extension-loader.xul
+
+overlay chrome://selenium-ide/content/optionsDialog.xul chrome://enhancedlogging/content/view/optionsOverlay.xul

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<overlay id="enhancedlogging_extension_loader_overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+    <script type="application/x-javascript" src="chrome://selenium-ide/content/api.js"/>
+    <script type="application/x-javascript" src="chrome://enhancedlogging/content/uninstaller.js"/>
+    <html:script type="application/javascript">
+    //Provide our own method for plugin registration method for IDE if none is provided :-)
+    if (!API.addPluginProvidedIdeExtension) {
+        API.prototype.addPluginProvidedIdeExtension = function(js_url) {
+            var options = {};
+
+            var current = this.preferences.getString("ideExtensionsPaths");
+            if (!current || current.length == 0){
+            options["ideExtensionsPaths"] = js_url;
+            this.preferences.save(options, "ideExtensionsPaths");
+            } else {
+            if (current.search(js_url) == -1) {
+                options["ideExtensionsPaths"] = current + ',' + js_url;
+                this.preferences.save(options, "ideExtensionsPaths");
+            }
+            }
+        };
+    }
+    var ide_api = new API();
+
+    ide_api.addPlugin("selenium-ide__enhanced-logging@theodore.campbell");
+    ide_api.addPluginProvidedUserExtension("chrome://enhancedlogging/content/extensions/enhanced-logging.js");
+    ide_api.preferences.save({"useEnhancedLogging": 1}, "useEnhancedLogging");
+    </html:script>
+</overlay>
