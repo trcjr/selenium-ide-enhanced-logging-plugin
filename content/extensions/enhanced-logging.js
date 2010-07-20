@@ -33,43 +33,13 @@
 // passing it to this function, as whitespace is NOT ignored!
 // ------------------------------------------------------------------
 
-var loggingStyles = [ 'enhanced', 'default', 'slow' ];
-currentLoggingStyle = 'enhanced';
-useNewStyleLogging = true;
+var useEnhancedLogging = true;
 
-Selenium.prototype.doSetLoggingEnhanced= function(newLoggingStyle) {
-    currentLoggingStyle = 'enhanced';
-}
-Selenium.prototype.doSetLoggingStyle= function(newLoggingStyle) {
-    /**
-     * Set the logging style okay
-     *
-     * @return the logging style
-     */
-    LOG.info( 'currentLoggingStyle: ' + currentLoggingStyle);
-    LOG.info( 'new: ' + newLoggingStyle);
-    LOG.info( 'c currentLoggingStyle: ' + loggingStyles.has(newLoggingStyle));
-    var i = loggingStyles.has(newLoggingStyle)
-    if (i != false) {
-        LOG.info( 'g currentLoggingStyle: ' + i);
-        LOG.info( 'found currentLoggingStyle: ' + currentLoggingStyle);
-        currentLoggingStyle = i;
-        LOG.info( 'fuck currentLoggingStyle: ' + currentLoggingStyle);
-    } else {
-        LOG.error("Logging style: '" + newLoggingStyle + "' is not valid");
-    }
-    LOG.info( 'after currentLoggingStyle: ' + currentLoggingStyle);
-};
-
-Selenium.prototype.getCurrentLoggingStyle= function(locator, text) {
-    LOG.info("Getting current logging style!");
-    return currentLoggingStyle;
-}
 Selenium.prototype.getLoggingStyle= function(locator, text) {
     /**
      * Get the 
      */
-    return useNewStyleLogging.toString();
+    return useEnhancedLogging;
 };
 
 Selenium.prototype.getTextLength = function(locator, text) {
@@ -97,7 +67,7 @@ try {
             var original_value = command.value;
             command.target = selenium.preprocessParameter(command.target);
             command.value = selenium.preprocessParameter(command.value);
-            if ((useNewStyleLogging == true) && (command.target != original_target || command.value != original_value)) {
+            if ((useEnhancedLogging == true) && (command.target != original_target || command.value != original_value)) {
                 LOG.info("Evaluated: |" + command.command + " | " + command.target + " | " + command.value + " |");
             }
             LOG.debug("Command found, going to execute " + command.command);
@@ -113,6 +83,7 @@ try {
  * Make this all work in RC automagicly.
  */
 try {
+    var useEnhancedLogging = true;
     HtmlRunnerTestLoop.prototype.doGetLoggingStyle = TestLoop.prototype.doGetLoggingStyle;
     HtmlRunnerTestLoop.prototype._executeCurrentCommand = TestLoop.prototype._executeCurrentCommand;
 } catch (e) {
